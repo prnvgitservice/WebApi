@@ -1,7 +1,10 @@
 import app from "./app.js";
 import sequelize from "./config/database.js";
+import dotenv from "dotenv";
 
-const PORT = 3231;
+dotenv.config();
+
+const PORT = process.env.PORT || 8080;
 
 sequelize.authenticate()
   .then(() => {
