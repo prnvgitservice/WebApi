@@ -26,18 +26,14 @@ const Color = sequelize.define(
   }
 );
 
+
 sequelize
   .sync()
-  .then(({ models }) => {
-    if (models.Color) {
-      console.log("✅ Color table already exists.");
-    } else {
-      console.log("✅ Color table created.");
-    }
+  .then(() => {
+    console.log("✅ Color table is synced successfully.");
   })
   .catch((err) => {
-    console.error("❌ Error creating Color table:", err);
+    console.error("❌ Error syncing Color table:", err);
   });
-
 
 export default Color;

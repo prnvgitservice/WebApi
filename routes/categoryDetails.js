@@ -1,18 +1,38 @@
 import express from "express";
-import Category from "../models/category.js"; // Adjust the path as needed
+import Categories from "../models/Categories.js";
 
 const router = express.Router();
 
-// Route to get categories with id, category_name, and category_image
-router.get("/categories", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const categories = await Category.findAll({
-      attributes: ["id", "category_name", "category_image"],
+    const categories = await Categories.findAll({
+      attributes: [
+        "id",
+        "category_name",
+        "category_slug",
+        "other_slug",
+        "category_image",
+        "thumb_image",
+        "cat_name",
+        "cat_desc_image",
+        "category_mobile_icon",
+        "is_featured",
+        "status",
+        "totalviews",
+        "created_at",
+        "meta_title",
+        "heading",
+        "meta_description",
+        "meta_keywords",
+        "home_page_order"
+      ],
     });
     res.status(200).json(categories);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Error fetching categories:", error.message);
+    res.status(500).json({ error: "Failed to fetch categories" });
   }
 });
+
 
 export default router;

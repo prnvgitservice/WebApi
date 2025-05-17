@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all colors
+// Get all colors - FIXED: Changed "/color" to "/"
 router.get("/", async (req, res) => {
   try {
     const colors = await Color.findAll();

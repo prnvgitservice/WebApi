@@ -1,74 +1,83 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const Category = sequelize.define(
-  "Category",
+// Define the model for the "categories" table
+const Categories = sequelize.define(
+  "Categories",
   {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
     },
     category_name: {
       type: DataTypes.STRING(500),
       allowNull: false,
+      charset: "utf8mb3",
+      collate: "utf8mb3_unicode_ci",
     },
     category_slug: {
       type: DataTypes.STRING(250),
       allowNull: false,
-      unique: true,
+      charset: "utf8mb3",
+      collate: "utf8mb3_general_ci",
     },
     other_slug: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
     },
     category_image: {
       type: DataTypes.STRING(500),
-      allowNull: true,
+      allowNull: false,
     },
     thumb_image: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
+      type: DataTypes.STRING(225),
+      allowNull: false,
     },
     cat_name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
     },
     category_description_content: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: false,
     },
     cat_desc_image: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: false,
     },
     category_mobile_icon: {
       type: DataTypes.STRING(225),
-      allowNull: true,
+      allowNull: false,
     },
     is_featured: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
     },
     status: {
-      type: DataTypes.INTEGER(11),
-      defaultValue: 1,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     totalviews: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER,
+      allowNull: false,
       defaultValue: 0,
     },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      allowNull: true,
+      defaultValue: null,
     },
     meta_title: {
       type: DataTypes.STRING(250),
       allowNull: true,
+      defaultValue: null,
     },
     heading: {
       type: DataTypes.STRING(250),
-      allowNull: true,
+      allowNull: false,
     },
     meta_description: {
       type: DataTypes.TEXT,
@@ -79,28 +88,24 @@ const Category = sequelize.define(
       allowNull: true,
     },
     home_page_order: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
     tableName: "categories",
-    timestamps: false,
+    timestamps: false, // No automatic createdAt/updatedAt
   }
 );
 
+// Sync the model with the database (create table if not exists)
 sequelize
   .sync()
-  .then(({ models }) => {
-    if (models.CategoryDetails) {
-      console.log("✅ CategoryDetails table already exists.");
-    } else {
-      console.log("✅ CategoryDetails table created.");
-    }
+  .then(() => {
+    console.log("✅ 'categories' table is synced successfully.");
   })
   .catch((err) => {
-    console.error("❌ Error creating CategoryDetails table:", err);
+    console.error("❌ Error syncing 'categories' table:", err);
   });
 
-
-export default Category;
+export default Categories;
