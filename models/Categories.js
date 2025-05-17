@@ -94,7 +94,7 @@ const Categories = sequelize.define(
   },
   {
     tableName: "categories",
-    timestamps: false, // No automatic createdAt/updatedAt
+    timestamps: false,
   }
 );
 
@@ -102,10 +102,10 @@ const Categories = sequelize.define(
 sequelize
   .sync()
   .then(() => {
-    console.log("✅ 'categories' table is synced successfully.");
+    console.log("✅ Categories table is synced successfully.");
   })
   .catch((err) => {
-    console.error("❌ Error syncing 'categories' table:", err);
+    console.error("❌ Error syncing Categories table:", err);
   });
 
 export default Categories;
