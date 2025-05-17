@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-// Define the model for the "categories" table
+// Define the model for the Categories
 const Categories = sequelize.define(
   "Categories",
   {
@@ -98,14 +98,5 @@ const Categories = sequelize.define(
   }
 );
 
-// Sync the model with the database (create table if not exists)
-sequelize
-  .sync()
-  .then(() => {
-    console.log("✅ Categories table is synced successfully.");
-  })
-  .catch((err) => {
-    console.error("❌ Error syncing Categories table:", err);
-  });
 
 export default Categories;

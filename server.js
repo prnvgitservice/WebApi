@@ -1,5 +1,6 @@
 import app from "./app.js";
 import sequelize from "./config/database.js";
+import syncDatabase from "./utils/syncDatabase.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,10 +11,19 @@ sequelize.authenticate()
   .then(() => {
     console.log("✅ Connected to Hostinger MySQL Database using Sequelize!");
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
-    });
-
+    // Sync all database tables
+    syncDatabase()
+      .then(() => {
+        console.log("✅ All tables synced successfully.");
+       
+        // Express Server
+        app.listen(PORT, () => {
+          console.log(`🚀 Server running at http://localhost:${PORT}`);
+        });
+      })
+      .catch((err) => {
+        console.error("❌ Error during database sync:", err);
+      });
   })
   .catch((err) => {
     console.error("❌ Unable to connect to MySQL:", err);

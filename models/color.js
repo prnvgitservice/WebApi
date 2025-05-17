@@ -27,13 +27,4 @@ const Color = sequelize.define(
 );
 
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log("✅ Color table is synced successfully.");
-  })
-  .catch((err) => {
-    console.error("❌ Error syncing Color table:", err);
-  });
-
 export default Color;

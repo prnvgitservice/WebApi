@@ -14,8 +14,6 @@ app.use("/", indexRouter);
 app.use("/colors", colorRouter);
 app.use("/categories", categoriesRouter); 
 
-console.log("Routes registered: /, /colors, /categories");
-
 // Handle Undefined Routes
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
