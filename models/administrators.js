@@ -47,6 +47,12 @@ const administrators = sequelize.define(
     }, {
         tableName: "administrators",
         timestamps: false,
+        indexes: [
+            {
+              unique: true,
+              fields: ["email"],
+            },
+          ],
     });
     
 export default administrators;

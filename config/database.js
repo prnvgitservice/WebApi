@@ -1,4 +1,3 @@
-// Load environment variables from .env file
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
@@ -11,6 +10,9 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
+    define: {
+      indexes: [],
+    },
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,

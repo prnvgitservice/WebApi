@@ -10,9 +10,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Route Definitions
-app.use("/", indexRouter);
-app.use("/colors", colorRouter);
-app.use("/categories", categoriesRouter); 
+app.use("/api", indexRouter);
+app.use("/api/colors", colorRouter);
+app.use("/api/categories", categoriesRouter); 
 
 // Handle Undefined Routes
 app.use((req, res) => {
