@@ -2,6 +2,7 @@ import express from "express";
 import indexRouter from "./routes/index.js";
 import colorRouter from "./routes/colors.js";
 import categoriesRouter from "./routes/categoryDetails.js";
+import seoContentDetailsRouter from "./routes/seoContentDetails.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", indexRouter);
 app.use("/api/colors", colorRouter);
 app.use("/api/categories", categoriesRouter); 
+app.use("/api/seo_content_details", seoContentDetailsRouter)
 
 // Handle Undefined Routes
 app.use((req, res) => {
