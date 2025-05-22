@@ -7,11 +7,11 @@ export const registerAdmin = async (req, res) => {
         password,
         username,
         profile_img,
-        fullname,
+        full_name,
     } = req.body;
 
-    if (!username || !fullname || !email || !password || !profile_img || !fullname) {
-        return res.status(400).json({ message: "Name, email, username, profile_img, password are required" });
+    if (!username || !full_name || !email || !password || !profile_img || !full_name) {
+        return res.status(400).json({ message: "FullName, email, username, profile_img, password are required" });
     }
 
     try {
@@ -27,15 +27,16 @@ export const registerAdmin = async (req, res) => {
 
         const encryptedPassword = crypto.createHash("md5").update(password).digest("hex");
 
-        const newAdmin = await User.create({
+        const newAdmin = await administrators.create({
             email,
-            password,
+            password: encryptedPassword,
             username,
             profile_img,
-            fullname,
+            full_name,
+            normal_password: password,
         });
 
-        res.status(201).json({ message: "Admin registered successfully", admin: newAdmin });
+        res.status(201).json({ message: "Admin registered successfully", administrators: newAdmin });
 
     } catch (error) {
         console.error("Registration error: ", error);

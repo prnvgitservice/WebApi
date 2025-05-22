@@ -12,7 +12,7 @@ async function syncDatabase() {
 
     for (const file of modelFiles) {
       const model = await import(`../models/${file}`);
-      await model.default.sync({ alter: true });
+      await model.default.sync();
       console.log(`✅ ${file.replace(".js", "")} table synced successfully.`);
     }
   } catch (error) {

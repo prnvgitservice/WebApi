@@ -20,7 +20,7 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/seo_content_details", seoContentDetailsRouter);
 app.use("/api/main_seo", mainSeoRouter);
 app.use("/api/users", userRouter);
-app.use("/api/admin/register", adminRouter);
+app.use("/api/admin", adminRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
