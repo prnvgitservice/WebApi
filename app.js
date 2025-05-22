@@ -5,6 +5,7 @@ import categoriesRouter from "./routes/categoryDetails.js";
 import seoContentDetailsRouter from "./routes/seoContentDetails.js";
 import mainSeoRouter from "./routes/mainSeo.js";
 import userRouter from "./routes/user.js"
+import adminRouter from "./routes/administratorRoutes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/seo_content_details", seoContentDetailsRouter);
 app.use("/api/main_seo", mainSeoRouter);
 app.use("/api/users", userRouter);
+app.use("/api/admin/register", adminRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
