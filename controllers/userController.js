@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 
 export const getAllUsers = async (req, res) => {
@@ -82,7 +83,19 @@ export const registerUser = async (req, res) => {
       last_login: now
     });
 
-    res.status(201).json({ message: "User registered successfully", user: newUser });
+    // 🔐 Issue JWT token
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      message: "User registered successfully",
+      user: newUser,
+      jwt: token
+    });
+
   } catch (error) {
     console.error("Registration error: ", error);
     res.status(500).json({ message: "Server error" });
