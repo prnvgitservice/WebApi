@@ -1,4 +1,5 @@
 import express from "express";
+
 import indexRouter from "./routes/index.js";
 import colorRouter from "./routes/colors.js";
 import categoriesRouter from "./routes/categoryDetails.js";
