@@ -7,7 +7,8 @@ import seoContentDetailsRouter from "./routes/seoContentDetails.js";
 import mainSeoRouter from "./routes/mainSeo.js";
 import userRouter from "./routes/user.js"
 import adminRouter from "./routes/administratorRoutes.js";
-import pncCityRoutes from "./routes/pncCitiesRoutes.js"
+import pncCityRouter from "./routes/pncCitiesRoutes.js";
+import blogpostRouter from "./routes/blogPostRoutes.js";
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.use("/api/seo_content_details", seoContentDetailsRouter);
 app.use("/api/main_seo", mainSeoRouter);
 app.use("/api/users", userRouter);
 app.use("/api/admin", adminRouter);
-app.use("/api/cities", pncCityRoutes);
+app.use("/api/cities", pncCityRouter);
+app.use("/api/blogposts", blogpostRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
