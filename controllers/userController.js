@@ -1,6 +1,6 @@
 import User from "../models/User.js";
-import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
 
 
 export const getAllUsers = async (req, res) => {
@@ -13,12 +13,57 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+export const loginUser = async (req, res) => {
+  const { identifier, password } = req.body; // identifier can be username or email
+
+  try {
+    // Try to find user by email
+    let user = await User.findOne({ where: { email: identifier } });
+
+    // If not found by email, try username
+    if (!user) {
+      user = await User.findOne({ where: { name: identifier } });
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Compare password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET || "default_secret", 
+      { expiresIn: "1d" }
+    );
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const registerUser = async (req, res) => {
   const {
     name,
     email,
     password,
     mobileno,
+    aadhar_number,
     country_code = "91",
     currency_code = "INR",
     otp = "000000",
@@ -35,8 +80,8 @@ export const registerUser = async (req, res) => {
     language = "en"
   } = req.body;
 
-  if (!name || !email || !password || !mobileno) {
-    return res.status(400).json({ message: "Name, email, password, and mobile number are required" });
+  if (!name || !email || !password || !mobileno || !aadhar_number) {
+    return res.status(400).json({ message: "Name, email, password, mobile number and Aadhar Number are required" });
   }
 
   try {
@@ -50,7 +95,12 @@ export const registerUser = async (req, res) => {
       return res.status(409).json({ message: "Mobile number already in use" });
     }
 
-    const encryptedPassword = crypto.createHash("md5").update(password).digest("hex");
+    const aadharNumber = await User.findOne({ where: { aadhar_number } });
+    if (aadharNumber) {
+      return res.status(409).json({ message: "Aadhar Number already in use" });
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10);
     const now = new Date();
 
     const newUser = await User.create({
@@ -59,6 +109,7 @@ export const registerUser = async (req, res) => {
       mobileno,
       password: encryptedPassword,
       pwd: pwd || encryptedPassword,
+      aadhar_number,
       country_code,
       currency_code,
       otp,
@@ -87,7 +138,7 @@ export const registerUser = async (req, res) => {
     const token = jwt.sign(
       { id: newUser.id, email: newUser.email },
       process.env.JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: '1d' }
     );
 
     res.status(201).json({
