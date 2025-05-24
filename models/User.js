@@ -21,6 +21,10 @@ const User = sequelize.define(
             type: DataTypes.STRING(250),
             allowNull: true,
         },
+        aadhar_number: {
+            type: DataTypes.STRING(12),
+            allowNull: false,
+        },
         country_code: {
             type: DataTypes.STRING(11),
             allowNull: false,
@@ -44,7 +48,7 @@ const User = sequelize.define(
         },
         profile_img: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         dob: {
             type: DataTypes.DATEONLY,
