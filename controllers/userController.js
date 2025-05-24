@@ -14,11 +14,11 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { identifier, password } = req.body; // identifier can be username or email
+  const { email, password } = req.body; // identifier can be username or email
 
   try {
     // Try to find user by email
-    let user = await User.findOne({ where: { email: identifier } });
+    let user = await User.findOne({ where: { email: email } });
 
     // If not found by email, try username
     // if (!user) {
