@@ -21,9 +21,9 @@ export const loginUser = async (req, res) => {
     let user = await User.findOne({ where: { email: identifier } });
 
     // If not found by email, try username
-    if (!user) {
-      user = await User.findOne({ where: { name: identifier } });
-    }
+    // if (!user) {
+    //   user = await User.findOne({ where: { name: identifier } });
+    // }
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
