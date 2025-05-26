@@ -1,4 +1,3 @@
-// controllers/colorController.js
 import Color from "../models/color.js";
 
 // Get all colors
