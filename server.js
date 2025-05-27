@@ -2,7 +2,6 @@ import app from "./app.js";
 import sequelize from "./config/database.js";
 import syncDatabase from "./utils/syncDatabase.js";
 import dotenv from "dotenv";
-import cors from "cors";
 
 dotenv.config();
 
