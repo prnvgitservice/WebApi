@@ -5,6 +5,10 @@ import sequelize from "../config/database.js";
 import User from "../models/User.js";
 import Providers from "../models/Providers.js";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const getAllProviders = async (req, res) => {
     try {
         const provider = await Providers.findAll();
