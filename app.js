@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import indexRouter from "./routes/index.js";
 import colorRouter from "./routes/colors.js";
@@ -15,8 +16,10 @@ import providerRouter from "./routes/providersRoutes.js";
 const app = express();
 
 // Middleware to parse incoming JSON and form data
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // Route Definitions
 app.use("/api", indexRouter);
