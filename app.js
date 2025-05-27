@@ -10,6 +10,7 @@ import adminRouter from "./routes/administratorRoutes.js";
 import pncCityRouter from "./routes/pncCitiesRoutes.js";
 import blogpostRouter from "./routes/blogPostRoutes.js";
 import pincodesRouter from "./routes/pincodes.js";
+import providerRouter from "./routes/providersRoutes.js";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/cities", pncCityRouter);
 app.use("/api/blogposts", blogpostRouter);
 app.use("/api/pincodes", pincodesRouter);
+app.use("/api/providers", providerRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
