@@ -2,6 +2,7 @@ import app from "./app.js";
 import sequelize from "./config/database.js";
 import syncDatabase from "./utils/syncDatabase.js";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -17,9 +18,10 @@ sequelize.authenticate()
         console.log("✅ All tables synced successfully.");
 
         // Express Server
-        app.listen(PORT, '0.0.0.0', () => {
-          console.log(`🚀 Server running at http://0.0.0.0:${PORT}/api/`);
+        app.listen(PORT, () => {
+          console.log(`🚀 Server running at http://localhost:${PORT}/api/`);
         });
+
 
       })
       .catch((err) => {
