@@ -15,11 +15,12 @@ sequelize.authenticate()
     syncDatabase()
       .then(() => {
         console.log("✅ All tables synced successfully.");
-       
+
         // Express Server
-        app.listen(PORT, () => {
-          console.log(`🚀 Server running at http://localhost:${PORT}/api/`);
+        app.listen(PORT, '0.0.0.0', () => {
+          console.log(`🚀 Server running at http://0.0.0.0:${PORT}/api/`);
         });
+
       })
       .catch((err) => {
         console.error("❌ Error during database sync:", err);
