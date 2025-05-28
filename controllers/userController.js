@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 import sequelize from "../config/database.js";
 import crypto from "crypto";
+import Provider from "../models/Providers.js";
 
 
 export const getAllUsers = async (req, res) => {
@@ -156,7 +157,7 @@ export const registerUser = async (req, res) => {
     if (type === 1) {
       const joinedBdaStr = now.toISOString().slice(0, 10);
 
-      newProvider = await Providers.create({
+      newProvider = await Provider.create({
         joined_bda: joinedBdaStr,
         name,
         username: username || null,
