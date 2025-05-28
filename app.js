@@ -12,6 +12,7 @@ import pncCityRouter from "./routes/pncCitiesRoutes.js";
 import blogpostRouter from "./routes/blogPostRoutes.js";
 import pincodesRouter from "./routes/pincodes.js";
 import providerRouter from "./routes/providersRoutes.js";
+import homepageRouter from "./routes/homepage.js"
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/cities", pncCityRouter);
 app.use("/api/blogposts", blogpostRouter);
 app.use("/api/pincodes", pincodesRouter);
 app.use("/api/providers", providerRouter);
+app.use("/api/serviceareas", homepageRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {

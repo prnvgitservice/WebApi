@@ -1,8 +1,8 @@
 import express from "express";
-import { getAllSeoContent } from "../controllers/seoContentDetailsController.js";
+import { getAllPrnvServiceAreas } from "../controllers/PrnvServiceAreasController.js";
 
 const router = express.Router();
 
-router.get("/", getAllSeoContent);
+router.get("/", getAllPrnvServiceAreas);
 
 export default router;
