@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
+import sequelize from "../config/database.js";
 
 
 export const getAllUsers = async (req, res) => {
