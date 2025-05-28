@@ -82,7 +82,6 @@ export const registerUser = async (req, res) => {
       purpose,
       offer,
       response_time,
-
       country_code = "91",
       currency_code = "INR",
       otp = "000000",
@@ -153,7 +152,6 @@ export const registerUser = async (req, res) => {
     let newProvider = null;
 
     if (type === 1) {
-      // ✅ If user is a provider, create provider entry too
       const joinedBdaStr = now.toISOString().slice(0, 10);
 
       newProvider = await Providers.create({
