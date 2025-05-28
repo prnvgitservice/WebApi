@@ -4,8 +4,10 @@ import jwt from "jsonwebtoken";
 import sequelize from "../config/database.js";
 import User from "../models/User.js";
 import Providers from "../models/Providers.js";
-import ProviderVideoGallery from "../models/ProviderVideoGallery.js"
-import ProviderAddress from "../models/ProviderAddress.js"
+import ProviderVideoGallery from "../models/ProviderVideoGallery.js";
+import ProviderAddress from "../models/ProviderAddress.js";
+import ProviderGallery from "../models/ProviderGallery.js";
+import ProviderHighlights from "../models/ProviderHighlights.js";
 
 import dotenv from "dotenv";
 
@@ -36,6 +38,24 @@ export const getProviderAddress = async(req, res) => {
         res.json(providerAddress);
     }catch(error){
         res.status(500).json({error: "Error fetching Proivder Address."});
+    }
+}
+
+export const getProviderGallery = async(req, res) => {
+    try{
+        const providerGallery = await ProviderGallery.findAll();
+        res.json(providerGallery);
+    }catch(error){
+        res.status(500).json({error: "Error fetching Proivder Gallery."});
+    }
+}
+
+export const getProviderHighligths = async(req, res) => {
+    try{
+        const providerHighlight = await ProviderHighlights.findAll();
+        res.json(providerHighlight);
+    }catch(error){
+        res.status(500).json({error: "Error fetching Proivder Gallery."});
     }
 }
 
