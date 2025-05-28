@@ -9,10 +9,13 @@ import mainSeoRouter from "./routes/mainSeo.js";
 import userRouter from "./routes/user.js"
 import adminRouter from "./routes/administratorRoutes.js";
 import pncCityRouter from "./routes/pncCitiesRoutes.js";
-import blogpostRouter from "./routes/blogPostRoutes.js";
+import blogsRouter from "./routes/blogRoutes.js";
 import pincodesRouter from "./routes/pincodes.js";
 import providerRouter from "./routes/providersRoutes.js";
-import homepageRouter from "./routes/homepage.js"
+import homepageRouter from "./routes/homepage.js";
+import advGalleryRouter from "./routes/advRoutes.js";
+import faqRouter from "./routes/faqRouters.js";
+import footerRouter from "./routes/footerRoutes.js";
 
 const app = express();
 
@@ -31,10 +34,13 @@ app.use("/api/main_seo", mainSeoRouter);
 app.use("/api/users", userRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/cities", pncCityRouter);
-app.use("/api/blogposts", blogpostRouter);
+app.use("/api/blogs", blogsRouter);
 app.use("/api/pincodes", pincodesRouter);
 app.use("/api/providers", providerRouter);
 app.use("/api/serviceareas", homepageRouter);
+app.use("/api/ads", advGalleryRouter);
+app.use("/api/faq", faqRouter);
+app.use("/api/footer", footerRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
