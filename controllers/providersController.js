@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import sequelize from "../config/database.js";
 import User from "../models/User.js";
 import Providers from "../models/Providers.js";
+import ProviderVideoGallery from "../models/ProviderVideoGallery.js"
+import ProviderAddress from "../models/ProviderAddress.js"
 
 import dotenv from "dotenv";
 
@@ -18,6 +20,24 @@ export const getAllProviders = async (req, res) => {
     }
 };
 
+
+export const getProviderVideoGallery = async(req, res) => {
+    try{
+        const gallery = await ProviderVideoGallery.findAll();
+        res.json(gallery);
+    }catch(error){
+        res.status(500).json({error: "Error fetching Provider Video Gallery."});
+    }
+};
+
+export const getProviderAddress = async(req, res) => {
+    try{
+        const providerAddress = await ProviderAddress.findAll();
+        res.json(providerAddress);
+    }catch(error){
+        res.status(500).json({error: "Error fetching Proivder Address."});
+    }
+}
 
 export const registerProvider = async (req, res) => {
     const t = await sequelize.transaction();
@@ -49,7 +69,7 @@ export const registerProvider = async (req, res) => {
             referral_earn,
             pwd,
             usertype = 0,
-            type = 1, // 1 = provider
+            type = 1, 
             is_agree = 1,
             language = "en",
             is_available,
