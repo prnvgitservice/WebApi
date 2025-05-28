@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import sequelize from "../config/database.js";
 import crypto from "crypto";
 import Provider from "../models/Providers.js";
+import UserAddress from "../models/UserAddress.js";
 
 
 export const getAllUsers = async (req, res) => {
@@ -13,6 +14,16 @@ export const getAllUsers = async (req, res) => {
   } catch (error) {
     console.error("Error fetching User details:", error);
     res.status(500).json({ error: "Failed to fetch Users" });
+  }
+};
+
+export const getUserAddress = async (req, res) => {
+  try {
+    const usersAddress = await UserAddress.findAll({});
+    res.status(200).json(usersAddress);
+  } catch (error) {
+    console.error("Error fetching User Address:", error);
+    res.status(500).json({ error: "Failed to fetch Users Address." });
   }
 };
 
