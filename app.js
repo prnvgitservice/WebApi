@@ -17,6 +17,7 @@ import advGalleryRouter from "./routes/advRoutes.js";
 import faqRouter from "./routes/faqRouters.js";
 import footerRouter from "./routes/footerRoutes.js";
 import pageContentRouter from "./routes/pageContentRoutes.js";
+import prnvCartRouter from "./routes/prnvCartRoutes.js"
 
 const app = express();
 
@@ -42,7 +43,8 @@ app.use("/api/serviceareas", homepageRouter);
 app.use("/api/ads", advGalleryRouter);
 app.use("/api/faq", faqRouter);
 app.use("/api/footer", footerRouter);
-app.use("/api/page-content", pageContentRouter)
+app.use("/api/page-content", pageContentRouter);
+app.use("/api/cart", prnvCartRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
