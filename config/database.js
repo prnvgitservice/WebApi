@@ -14,9 +14,7 @@ const sequelize = new Sequelize(
       indexes: [],
     },
     dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      ssl: false,
       authPlugins: {
         mysql_native_password: () => require('mysql2/lib/auth_plugins').mysql_native_password
       }
