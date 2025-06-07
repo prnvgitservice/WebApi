@@ -18,6 +18,7 @@ import faqRouter from "./routes/faqRouters.js";
 import footerRouter from "./routes/footerRoutes.js";
 import pageContentRouter from "./routes/pageContentRoutes.js";
 import prnvCartRouter from "./routes/prnvCartRoutes.js"
+import servicesRouter from "./routes/serviceRoutes.js"
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api/faq", faqRouter);
 app.use("/api/footer", footerRouter);
 app.use("/api/page-content", pageContentRouter);
 app.use("/api/cart", prnvCartRouter);
+app.use("/api/services", servicesRouter);
 
 // Handle Undefined Routes
 app.use((req, res) => {
