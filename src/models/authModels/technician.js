@@ -5,7 +5,7 @@ export interface ITechnician extends Document {
   email: string;
   mobileNumber: string;
   dateOfBirth: Date;
-  serviceCategory: string;
+  serviceCategory: string; 
 }
 
 const TechnicianSchema: Schema = new Schema({
