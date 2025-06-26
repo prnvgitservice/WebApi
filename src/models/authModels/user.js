@@ -7,7 +7,7 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true,  
     trim: true,
     lowercase: true
   },
@@ -25,14 +25,13 @@ const userSchema = new Schema({
   }
 }, { timestamps: true });
 
-// Hash password
+
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
-// Compare password
 userSchema.methods.isPasswordMatch = function(password) {
   return bcrypt.compare(password, this.password);
 };
