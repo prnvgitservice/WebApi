@@ -1,43 +1,45 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-export interface ITechnician extends Document {
-  fullname: string;
-  email: string;
-  mobileNumber: string;
-  dateOfBirth: Date;
-  serviceCategory: string; 
-}
+const { Schema, model } = mongoose;
 
-const TechnicianSchema: Schema = new Schema({
-  fullname: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
+const technicianSchema = new Schema({
+  username: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
     trim: true,
+    lowercase: true
   },
-  mobileNumber: {
+  phoneNumber: {
     type: String,
     required: true,
     unique: true,
-    match: /^[6-9]\d{9}$/, // Indian mobile number format
+    match: [/^\d{10}$/, 'Phone number must be 10 digits']
   },
-  dateOfBirth: {
-    type: Date,
-    required: true,
-  },
-  serviceCategory: {
+  category: {
     type: String,
     required: true,
-    enum: ['Electrician', 'Plumber', 'Carpenter', 'Cleaner', 'Painter'], 
+    enum: ['electrician', 'plumber', 'carpenter', 'mechanic', 'other']
   },
-}, {
-  timestamps: true,
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+    select: false
+  }
+}, { timestamps: true });
+
+// Hash password before save
+technicianSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
 });
 
-export default mongoose.model<ITechnician>('Technician', TechnicianSchema);
+// Compare password
+technicianSchema.methods.isPasswordMatch = function(password) {
+  return bcrypt.compare(password, this.password);
+};
+
+export default model('Technician', technicianSchema);
