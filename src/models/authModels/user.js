@@ -25,15 +25,15 @@ const userSchema = new Schema({
   }
 }, { timestamps: true });
 
-
-userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-userSchema.methods.isPasswordMatch = function(password) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.isPasswordMatch = async function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
-export default model('User', userSchema);
+export default model("User", userSchema);
