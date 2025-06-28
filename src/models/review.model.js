@@ -1,9 +1,7 @@
-import mongoose from 'mongoose';
-
 const ReviewSchema = new mongoose.Schema({
-  userId: {
+  serviceId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Service',
     required: true
   },
   reviewerId: {
@@ -25,6 +23,6 @@ const ReviewSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, { timestamps: true });
 
 export default mongoose.model('Review', ReviewSchema);
