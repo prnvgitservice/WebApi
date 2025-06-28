@@ -7,6 +7,11 @@ const CategorySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+     category_image: {
+      type: String,
+      required: true,
+      default: null,
+    },
     category_slug: {
       type: String,
       required: true,
@@ -14,18 +19,24 @@ const CategorySchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    category_image: {
+    meta_title: {
       type: String,
-      default: null,
+      default: '',
     },
-    category_description_content: {
+    meta_description: {
       type: String,
       default: '',
     },
     status: {
       type: Number,
-      default: 1, // 1 = active, 0 = inactive
+      default: 1,
       enum: [0, 1],
+    },
+    totalviews:{
+      type: Number,
+    },
+    ratings:{
+      type: Number,
     },
   },
   {
