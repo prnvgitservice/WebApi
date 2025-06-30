@@ -1,13 +1,8 @@
 {
   "name": "prnv-backend",
   "version": "1.0.0",
-<<<<<<< HEAD
   "main": "/src/server.js",
   "type": "module",
-=======
-  "type": "module",
-  "main": "index.js",
->>>>>>> 7e188c3aeba4b44bfb919dfe679ce7faee81e37d
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
