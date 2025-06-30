@@ -13,7 +13,7 @@ const PincodeSchema = new mongoose.Schema({
   code: { type: String, required: true, unique: true },
   city: { type: String },
   state: { type: String },
-  areas: [AreaSchema], // Embedded
+  areas: [AreaSchema],
 }, { timestamps: true });
 
 export default mongoose.model('Pincode', PincodeSchema);
