@@ -1,28 +1,31 @@
-const ReviewSchema = new mongoose.Schema({
+import mongoose from 'mongoose';
+
+const reviewSchema = new mongoose.Schema({
   serviceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Service',
-    required: true
+    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   rating: {
     type: Number,
     required: true,
     min: 1,
-    max: 5
+    max: 5,
   },
   comment: {
     type: String,
-    maxlength: 1000
+    maxlength: 1000,
+    trim: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-}, { timestamps: true });
+}, {
+  timestamps: true,
+});
 
-export default mongoose.model('Review', ReviewSchema);
+reviewSchema.index({ serviceId: 1, userId: 1 }, { unique: true });
+
+export default mongoose.model('Review', reviewSchema);
