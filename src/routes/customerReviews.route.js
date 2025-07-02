@@ -4,7 +4,7 @@ import authMiddleware from '../middleware/userMiddleware.js';
 
 const router = express.Router();
 
-// protected routes
+// Protected routes
 router.post('/', authMiddleware, reviewController.createReview);
 router.put('/:reviewId', authMiddleware, reviewController.updateReview);
 router.delete('/:reviewId', authMiddleware, reviewController.deleteReview);
