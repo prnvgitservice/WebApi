@@ -29,13 +29,19 @@ const franchiseSchema = new Schema({
     required: true,
     min: 0
   },
-  status: {
-    type: String,
-    enum: ['active', 'inactive', 'suspended'],
-    default: 'active'
-  }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+// Virtual to check 30-day validity from createdAt
+franchiseSchema.virtual('status').get(function () {
+  const createdAt = this.createdAt;
+  const now = new Date();
+  const diffMs = now - createdAt;
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  return diffDays <= 30 ? 'active' : 'suspended';
 });
 
 export default model('Franchise', franchiseSchema);
