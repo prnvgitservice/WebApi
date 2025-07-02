@@ -40,6 +40,11 @@ const CategorySchema = new Schema(
     ratings:{
       type: Number,
     },
+    // subAreaId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'SubArea',
+    //   required: true, // category must be linked to a sub-area
+    // },
   },
   {
     timestamps: true, 
