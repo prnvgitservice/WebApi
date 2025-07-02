@@ -11,15 +11,15 @@ import {
   getAllFilters
 } from '../controllers/services.controller.js';
 
-import auth from '../middlewares/auth.middleware.js'; // Make sure this attaches `req.user`
+import authMiddleware from '../middleware/userMiddleware.js';
 
 const router = express.Router();
 
 // 🔐 Technician-only routes
-router.post('/', auth, createService);                       // Create service
-router.get('/my', auth, getMyServices);                      // Get all services by this technician
-router.patch('/:id', auth, updateService);                   // Update service by ID
-router.delete('/:id', auth, deleteService);                  // Delete service by ID
+router.post('/', authMiddleware, createService);                       // Create service
+router.get('/my', authMiddleware, getMyServices);                      // Get all services by this technician
+router.patch('/:id', authMiddleware, updateService);                   // Update service by ID
+router.delete('/:id', authMiddleware, deleteService);                  // Delete service by ID
 
 // 🌐 Public access
 router.get('/top-rated', getTopRatedServices);               // Get top rated services

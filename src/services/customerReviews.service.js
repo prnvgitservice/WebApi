@@ -1,4 +1,4 @@
-import Review from '../models/Review.js';
+import Review from '../models/customerReviews.model.js';
 
 export const createReview = async ({ serviceId, userId, rating, comment }) => {
   const existing = await Review.findOne({ serviceId, userId });
