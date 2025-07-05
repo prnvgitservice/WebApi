@@ -17,10 +17,13 @@ const serviceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'TechnicianProfile',
   },
+  name: {
+    type: String,
+   required: true,
+  },
   category: {
     type: String,
     required: true,
-    enum: ['AC Repair', 'Plumbing', 'Electrical', 'Carpentry', 'Other'],
   },
   title: {
     type: String,
@@ -42,6 +45,7 @@ const serviceSchema = new Schema({
     default: 0,
   },
   photos: [photoSchema], // optional, remove if photo is not service-specific
+
 }, {
   timestamps: true,
 });
