@@ -9,7 +9,15 @@ const technicianSchema = new Schema({
     required: true,
     unique: true,
     trim: true,
-    lowercase: true
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    default: "Technician",
   },
   phoneNumber: {
     type: String,
@@ -17,27 +25,24 @@ const technicianSchema = new Schema({
     unique: true,
     match: [/^\d{10}$/, 'Phone number must be 10 digits']
   },
-  category: {
+  hash_password: {
     type: String,
     required: true,
-    enum: ['electrician', 'plumber', 'carpenter', 'mechanic', 'other']
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    select: false
-  }
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+  },
 }, { timestamps: true });
 
 technicianSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  if (!this.isModified('hash_password')) return next();
+  this.hash_password = await bcrypt.hash(this.hash_password, 12);
   next();
 });
 
 technicianSchema.methods.isPasswordMatch = function(password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.hash_password);
 };
 
 export default model('Technician', technicianSchema);
