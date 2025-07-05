@@ -1,6 +1,6 @@
 import technician from "../../models/authModels/technician.js";
 import { generateToken } from "../../utils/generateToken.js";
-
+import bcrypt from 'bcryptjs';
 
 const generatedSequrityCodes = new Set();
 
@@ -43,30 +43,29 @@ export const registerTechnicianController = async (req, res, next) => {
 };
 
 export const loginTechnicianController = async (req, res, next) => {
-  const {phoneNumber, password} = req.body
+  const { phoneNumber, password } = req.body
   try {
 
-    const result = await technician.findOne({phoneNumber : phoneNumber});
-      if (!result) {
-            return res.status(400).json({ message: "User not found" });
-        }
+    const result = await technician.findOne({ phoneNumber: phoneNumber });
+    if (!result) {
+      return res.status(400).json({ message: "User not found" });
+    }
 
-         const isPasswordValid = await bcrypt.compare(req.body.password, result.hash_password);
-if (!isPasswordValid) {
-            return res.status(400).json({ message: "Invalid Password" });
-        }
+    const isPasswordValid = await bcrypt.compare(req.body.password, result.hash_password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid Password" });
+    }
 
-        if (result.role !== "Technician") {
-            return res.status(400).json({ message: "You do not have Technician privileges" });
-        }
+    if (result.role !== "Technician") {
+      return res.status(400).json({ message: "You do not have Technician privileges" });
+    }
 
-         const token = generateToken(result);
-     
+    const token = generateToken(result);
 
-res.status(200).json({
-            token,
-            result,
-        });
+    res.status(200).json({
+      token,
+      result,
+    });
   } catch (err) {
     next(err);
   }

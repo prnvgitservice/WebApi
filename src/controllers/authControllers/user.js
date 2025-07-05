@@ -1,32 +1,39 @@
 import * as authService from "../../services/authServices/user.js";
 
+
+// Helper for standardized responses
+const sendResponse = (res, status, message, data) => {
+  res.status(status).json({
+    success: true,
+    message,
+    user: data,
+  });
+};
+
+
+// Register Controller
 export const register = async (req, res, next) => {
   try {
-    const result = await authService.register(req.body);
-     console.log("req.body", req.body)
-    res.status(201).json({
-      success: true,
-      message: "User Registered successfully.",
-      user: result,
-    });
-  } catch (err) {
-    next(err)
+    const user = await authService.register(req.body);
+
+
+    sendResponse(res, 201, "User registered successfully.", user);
+  } catch (error) {
+    next(error);
   }
 };
 
+
+// Login Controller
 export const login = async (req, res, next) => {
   try {
-    const result = await authService.login(req.body);
-    res.json({
-      success: true,
-      message: "User Login successfully.",
-      user: result,
-    });
-    console.log("req.body",req.body)
-  } catch (err) {
-    next(err);
+    const user = await authService.login(req.body);
+    sendResponse(res, 200, "User login successful.", user);
+  } catch (error) {
+    next(error);
   }
 };
+
 // export const login = async (req, res, next) => {
 //   try {
 //     const result = await authService.login(req.body);

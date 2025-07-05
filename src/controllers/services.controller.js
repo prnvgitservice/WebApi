@@ -2,7 +2,8 @@ import * as serviceService from '../services/services.service.js';
 
 export const createService = async (req, res) => {
   try {
-    const technicianId = req.user._id;
+    console.log("req.user", req.user)
+    const technicianId = req.user.id;
     const service = await serviceService.createService(technicianId, req.body);
     res.status(201).json(service);
   } catch (err) {
@@ -31,7 +32,7 @@ export const getServiceById = async (req, res) => {
 
 export const updateService = async (req, res) => {
   try {
-    const updated = await serviceService.updateService(req.user._id, req.params.id, req.body);
+    const updated = await serviceService.updateService(req.user.id, req.params.id, req.body);
     if (!updated) return res.status(404).json({ error: 'Service not found or unauthorized' });
     res.json(updated);
   } catch (err) {
@@ -41,7 +42,7 @@ export const updateService = async (req, res) => {
 
 export const deleteService = async (req, res) => {
   try {
-    const result = await serviceService.deleteService(req.user._id, req.params.id);
+    const result = await serviceService.deleteService(req.user.id, req.params.id);
     if (!result) return res.status(404).json({ error: 'Service not found or unauthorized' });
     res.json({ message: 'Service deleted successfully' });
   } catch (err) {

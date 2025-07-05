@@ -4,6 +4,11 @@ import bcrypt from 'bcryptjs';
 const { Schema, model } = mongoose;
 
 const technicianSchema = new Schema({
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   username: {
     type: String,
     required: true,

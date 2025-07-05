@@ -21,7 +21,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/techAuth', authTechRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/reviews', reviewRoutes);
-app.use('/api/serices', serviceRoutes);
+app.use('/api/services', serviceRoutes);
 
 app.use(errorHandler)
   
