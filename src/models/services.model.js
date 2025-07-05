@@ -2,74 +2,48 @@ import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
 
-const featureSchema = new Schema({
-  name: { type: String, required: true },
-  included: { type: Boolean, default: false }
-}, { _id: false });
+const photoSchema = new Schema({
+  url: { type: String, required: true },
+  uploadedAt: { type: Date, default: Date.now },
+});
 
-const subscriptionPlanSchema = new Schema({
-  name: {
+const serviceSchema = new Schema({
+  technicianId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Technician',
+    required: true,
+  },
+  businessProfileId: {
+    type: Schema.Types.ObjectId,
+    ref: 'TechnicianProfile',
+  },
+  category: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 100,
-    trim: true
+    enum: ['AC Repair', 'Plumbing', 'Electrical', 'Carpentry', 'Other'],
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+    maxlength: 1000,
   },
   price: {
     type: Number,
     required: true,
-    min: 0
+    min: 0,
   },
-  originalPrice: {
+  bookingCount: {
     type: Number,
-    default: null
+    default: 0,
   },
-  discount: {
-    type: Number,
-    default: null
-  },
-  gst: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  totalPrice: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  validity: {
-    type: Number,
-    required: true,
-    min: 1
-  },
-  validityUnit: {
-    type: String,
-    enum: ['days', 'months', 'years'],
-    default: 'days'
-  },
-  maxMembers: {
-    type: Number,
-    default: null
-  },
-  maxLeads: {
-    type: Number,
-    default: null
-  },
-  features: {
-    type: [featureSchema],
-    required: true
-  },
-  isPopular: {
-    type: Boolean,
-    default: false
-  },
-  isActive: {
-    type: Boolean,
-    default: true
-  }
+  photos: [photoSchema], // optional, remove if photo is not service-specific
 }, {
-  timestamps: true
+  timestamps: true,
 });
 
-export default model('SubscriptionPlan', subscriptionPlanSchema);
+export default model('Service', serviceSchema);
