@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 // SubscriptionPlan model factory function
 export const createSubscriptionPlan = (data) => {
   return {
-    id: data.id || uuidv4(),
     name: data.name,
     price: parseFloat(data.price),
     originalPrice: data.originalPrice ? parseFloat(data.originalPrice) : null,

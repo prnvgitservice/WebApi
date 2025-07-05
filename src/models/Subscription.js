@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 // Subscription model factory function
 export const createSubscription = (data) => {
   return {
-    id: data.id || uuidv4(),
     technicianId: data.technicianId,
     planId: data.planId,
     planName: data.planName,
