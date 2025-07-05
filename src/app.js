@@ -8,6 +8,7 @@ import { errorHandler } from './middleware/errorMiddleware.js';
 import serviceRoutes from './routes/services.route.js';
 
 dotenv.config();
+connectDB()
 
 const app = express();
 app.use(express.json());
